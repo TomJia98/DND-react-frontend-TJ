@@ -3,14 +3,14 @@ import { getSpells } from "../components/dnd-api";
 import Select from "react-select";
 
 const Spells = () => {
-  let [options, setOptions] = useState([]);
+  let [options, setOptions] = useState();
   const [page, setPage] = useState(1);
   const [selectedSpell, setSelectedSpell] = useState("");
   const [pageSettings, setPageSettings] = useState(page, 20);
 
   const spellsData = async () => {
     const results = await getSpells();
-    if (options.length === 0) {
+    if (!options) {
       //stops the options from doubling up on re-render
       const resultsArr = results.results;
       const returnArr = [];
@@ -19,6 +19,7 @@ const Spells = () => {
         returnArr.push(el);
       }
       setOptions(returnArr);
+      console.log(returnArr);
     }
   };
   console.log();
@@ -76,13 +77,19 @@ const Spells = () => {
       </div>
       <p>{selectedSpell}</p>
       <div className="alphabetSection">
-        <ul>
-          {pagesFunct(options, 1, 20).map((el) => {
-            console.log(el);
-            return <li>{el.name}</li>;
-          })}
-        </ul>
-        {pageDisplay()}
+        {options ? (
+          <>
+            <ul>
+              {pagesFunct(options, page, 20).map((el) => {
+                console.log(el);
+                return <li>{el.label}</li>;
+              })}
+            </ul>
+            {pageDisplay()}
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );
