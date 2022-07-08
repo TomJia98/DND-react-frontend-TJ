@@ -54,10 +54,17 @@ const Spells = () => {
 
   const pagesFunct = (array, page, amount = 20) => {
     //lets the user select a page of results,as well as how many results are on each page
-    const min = page * amount;
+
+    const min = page * amount - 20;
     const returnArr = [];
-    for (let i = min; i < min + amount; i++) {
-      returnArr.push(array[i]);
+    let max = min + amount;
+    if (array.length < max) {
+      max = array.length;
+    }
+    for (let i = min; i < max; i++) {
+      if (array[i] !== undefined) {
+        returnArr.push(array[i]);
+      } else return;
     }
     return returnArr;
   };
@@ -80,9 +87,11 @@ const Spells = () => {
         {options ? (
           <>
             <ul>
-              {pagesFunct(options, page, 20).map((el) => {
+              {pagesFunct(options, page)?.map((el) => {
                 console.log(el);
-                return <li>{el.label}</li>;
+                if (el.label != undefined) {
+                  return <li>{el.label}</li>;
+                } else return <li></li>;
               })}
             </ul>
             {pageDisplay()}
