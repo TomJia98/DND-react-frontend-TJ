@@ -7,7 +7,7 @@ const Spells = () => {
   const [page, setPage] = useState(1);
   const [selectedSpell, setSelectedSpell] = useState("");
   const [pageSettings, setPageSettings] = useState(page, 20);
-  const [spellInfo, setSpellInfo] = useState("");
+  const [spellInfo, setSpellInfo] = useState();
   const spellsData = async () => {
     const results = await getSpells();
     if (!options) {
@@ -54,6 +54,7 @@ const Spells = () => {
     console.log(e.target.id);
     const resp = await getSpellInfo(e.target.id);
     console.log(resp);
+    setSpellInfo(resp);
   };
   const pagesFunct = (array, page, amount = 20) => {
     //lets the user select a page of results,as well as how many results are on each page
@@ -101,10 +102,26 @@ const Spells = () => {
               })}
             </ul>
             {pageDisplay()}
-            <div className="spellInfo">{spellInfo ? <></> : <></>}</div>
+            <div className="spellInfo">
+              {spellInfo ? (
+                <>
+                  <h3 id="spellDesc">Spell Description</h3>
+                  {spellInfo.desc.map((el) => {
+                    return <p>{el}</p>;
+                  })}
+                  <p>{spellInfo.desc}</p>
+                </>
+              ) : (
+                <>
+                  <p>no spell info</p>
+                </>
+              )}
+            </div>
           </>
         ) : (
-          <></>
+          <>
+            <p>loading spells</p>
+          </>
         )}
       </div>
     </div>
