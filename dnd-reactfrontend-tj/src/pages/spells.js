@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getSpells } from "../components/dnd-api";
+import { getSpells, getSpellInfo } from "../components/dnd-api";
 import Select from "react-select";
 
 const Spells = () => {
@@ -7,7 +7,7 @@ const Spells = () => {
   const [page, setPage] = useState(1);
   const [selectedSpell, setSelectedSpell] = useState("");
   const [pageSettings, setPageSettings] = useState(page, 20);
-
+  const [spellInfo, setSpellInfo] = useState("");
   const spellsData = async () => {
     const results = await getSpells();
     if (!options) {
@@ -19,10 +19,8 @@ const Spells = () => {
         returnArr.push(el);
       }
       setOptions(returnArr);
-      console.log(returnArr);
     }
   };
-  console.log();
   spellsData();
 
   const increasePage = () => {
@@ -34,7 +32,7 @@ const Spells = () => {
   };
 
   const pageDisplay = () => {
-    if (page != 1) {
+    if (page !== 1) {
       return (
         <div>
           <button onClick={decreasePage}>-</button>
@@ -52,6 +50,11 @@ const Spells = () => {
     }
   };
 
+  const thing = async (e) => {
+    console.log(e.target.id);
+    const resp = await getSpellInfo(e.target.id);
+    console.log(resp);
+  };
   const pagesFunct = (array, page, amount = 20) => {
     //lets the user select a page of results,as well as how many results are on each page
 
@@ -83,18 +86,22 @@ const Spells = () => {
         />
       </div>
       <p>{selectedSpell}</p>
-      <div className="alphabetSection">
+      <div id="infoSection">
         {options ? (
           <>
-            <ul>
+            <ul className="alphabetSection">
               {pagesFunct(options, page)?.map((el) => {
-                console.log(el);
-                if (el.label != undefined) {
-                  return <li>{el.label}</li>;
+                if (el.label !== undefined) {
+                  return (
+                    <li onMouseEnter={thing} key={el.value} id={el.value}>
+                      {el.label}
+                    </li>
+                  );
                 } else return <li></li>;
               })}
             </ul>
             {pageDisplay()}
+            <div className="spellInfo">{spellInfo ? <></> : <></>}</div>
           </>
         ) : (
           <></>
