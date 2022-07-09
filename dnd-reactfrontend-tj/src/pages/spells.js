@@ -28,7 +28,7 @@ const Spells = () => {
     const selectedName = e.target.parentElement.getAttribute("data-name");
     const selected = [selectedName, selectedIndex];
     if (localStorage.getItem("spells") == undefined) {
-      localStorage.setItem("spells", JSON.stringify(selected));
+      localStorage.setItem("spells", JSON.stringify([selected]));
       setFavButton(<button disabled>Favourited</button>);
     } else {
       let savedSpells = JSON.parse(localStorage.getItem("spells"));
@@ -45,13 +45,11 @@ const Spells = () => {
     const localSpells = JSON.parse(localStorage.getItem("spells"));
     let isFavourited = false;
     for (let i = 0; i < localSpells.length; i++) {
-      console.log(localSpells[i]);
       if (localSpells[i] === resp.name) {
         isFavourited = true;
       }
       if (localSpells[i][0] === resp.name) {
         isFavourited = true;
-        console.log("is is true");
       }
     }
     if (isFavourited) {
