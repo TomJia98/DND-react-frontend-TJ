@@ -1,4 +1,31 @@
 .alphabetSection {
   display: inline-block;
   padding: 5px 10px;
+  
+  
+};
+
+#infoSection {
+  display: flex;
+  flex-direction: column;
+
+};
+
+#spellInfo {
+
+}
+#spellDescSpan {
+ float:right;
+ width:50%;
+
+}
+.spellP{
+  
+}
+
+#pageButtons{
+
+  position:fixed;
+  top:70%;
+  left:2%;
 }

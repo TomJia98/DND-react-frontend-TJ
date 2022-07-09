@@ -5,7 +5,6 @@ import Select from "react-select";
 const Spells = () => {
   let [options, setOptions] = useState();
   const [page, setPage] = useState(1);
-  const [selectedSpell, setSelectedSpell] = useState("");
   const [pageSettings, setPageSettings] = useState(page, 20);
   const [spellInfo, setSpellInfo] = useState();
   const spellsData = async () => {
@@ -34,26 +33,30 @@ const Spells = () => {
   const pageDisplay = () => {
     if (page !== 1) {
       return (
-        <div>
-          <button onClick={decreasePage}>-</button>
+        <span id="pageButtons">
+          <button onClick={decreasePage}>&#8592;</button>
           <span>{page}</span>
-          <button onClick={increasePage}>+</button>
-        </div>
+          <button onClick={increasePage}>&#8594;</button>
+        </span>
       );
     } else {
       return (
-        <div>
+        <span id="pageButtons">
+          <button onClick={decreasePage} disabled>
+            &#8592;
+          </button>
           <span>{page}</span>
-          <button onClick={increasePage}>+</button>
-        </div>
+          <button onClick={increasePage}>&#8594;</button>
+        </span>
       );
     }
   };
-
-  const thing = async (e) => {
-    console.log(e.target.id);
+  const SetActiveSpellDropdown = async (e) => {
+    const resp = await getSpellInfo(e.value);
+    setSpellInfo(resp);
+  };
+  const SetActiveSpell = async (e) => {
     const resp = await getSpellInfo(e.target.id);
-    console.log(resp);
     setSpellInfo(resp);
   };
   const pagesFunct = (array, page, amount = 20) => {
@@ -72,9 +75,7 @@ const Spells = () => {
     }
     return returnArr;
   };
-  const handleSpellSelection = (ev) => {
-    setSelectedSpell(ev.label);
-  };
+
   return (
     <div>
       <div className="selectDropdown">
@@ -83,10 +84,9 @@ const Spells = () => {
           isMulti={false}
           options={options}
           closeMenuOnSelect={true}
-          onChange={handleSpellSelection}
+          onChange={SetActiveSpellDropdown}
         />
       </div>
-      <p>{selectedSpell}</p>
       <div id="infoSection">
         {options ? (
           <>
@@ -94,29 +94,29 @@ const Spells = () => {
               {pagesFunct(options, page)?.map((el) => {
                 if (el.label !== undefined) {
                   return (
-                    <li onMouseEnter={thing} key={el.value} id={el.value}>
+                    <li onClick={SetActiveSpell} key={el.value} id={el.value}>
                       {el.label}
                     </li>
                   );
-                } else return <li></li>;
+                } else return;
               })}
             </ul>
             {pageDisplay()}
-            <div className="spellInfo">
+            <span id="spellInfo">
               {spellInfo ? (
                 <>
-                  <h3 id="spellDesc">Spell Description</h3>
-                  {spellInfo.desc.map((el) => {
-                    return <p>{el}</p>;
-                  })}
-                  <p>{spellInfo.desc}</p>
+                  <span id="spellDescSpan">
+                    <h3 id="spellDesc">{spellInfo.name}</h3>
+                    <button>Favourite</button>
+                    {spellInfo.desc.map((el) => {
+                      return <p className="spellP">{el}</p>;
+                    })}
+                  </span>
                 </>
               ) : (
-                <>
-                  <p>no spell info</p>
-                </>
+                <></>
               )}
-            </div>
+            </span>
           </>
         ) : (
           <>
