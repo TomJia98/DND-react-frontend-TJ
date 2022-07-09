@@ -25,7 +25,7 @@
 
 #pageButtons{
 
-  position:fixed;
+  position:relative;
   top:70%;
   left:2%;
 }
