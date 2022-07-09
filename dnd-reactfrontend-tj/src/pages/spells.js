@@ -7,6 +7,8 @@ const Spells = () => {
   let [options, setOptions] = useState();
   const [page, setPage] = useState(1);
   const [spellInfo, setSpellInfo] = useState();
+  const [favButton, setFavButton] = useState();
+
   const spellsData = async () => {
     const results = await getSpells();
     if (!options) {
@@ -21,18 +23,34 @@ const Spells = () => {
     }
   };
   spellsData();
-
   const favourite = (e) => {
+    const selected = e.target.parentElement.getAttribute("data-index"); //-------------clog
     if (localStorage.getItem("spells") == undefined) {
-      console.log("no spells saved so far"); //----------------clog
-      const savedSpells = [spellInfo.index];
+      const savedSpells = [selected];
       localStorage.setItem("spells", JSON.stringify(savedSpells));
+      setFavButton(<button disabled>Favourited</button>);
     } else {
       let savedSpells = JSON.parse(localStorage.getItem("spells"));
-      savedSpells.push(spellInfo.index);
+      savedSpells.push(selected);
       localStorage.setItem("spells", JSON.stringify(savedSpells));
+      setFavButton(<button disabled>Favourited</button>);
     }
   };
+  const isFavouritedinit = (resp) => {
+    if (localStorage.getItem("spells") == undefined) {
+      setFavButton(<button onClick={favourite}>Favourite</button>);
+      return;
+    }
+    const localSpells = JSON.parse(localStorage.getItem("spells"));
+    //console.log(spellInfo); //----------------clog
+    const isFavourited = localSpells.includes(resp.index);
+    if (isFavourited) {
+      setFavButton(<button disabled>Favourited</button>);
+    } else {
+      setFavButton(<button onClick={favourite}>Favourite</button>);
+    }
+  };
+
   const increasePage = () => {
     setPage(page + 1);
   };
@@ -42,13 +60,16 @@ const Spells = () => {
   };
 
   const SetActiveSpellDropdown = async (e) => {
+    setSpellInfo();
+
     const resp = await getSpellInfo(e.value);
     setSpellInfo(resp);
-    // console.log(resp.index); //--------------------clog this is the index of the spell, use for saving to favourites
+    isFavouritedinit(resp);
   };
   const SetActiveSpell = async (e) => {
     const resp = await getSpellInfo(e.target.id);
     setSpellInfo(resp);
+    isFavouritedinit(resp);
   };
   const pagesFunct = (array, page, amount = 20) => {
     //lets the user select a page of results,as well as how many results are on each page
@@ -135,9 +156,9 @@ const Spells = () => {
             <span id="spellInfo">
               {spellInfo ? (
                 <>
-                  <span id="spellDescSpan">
+                  <span id="spellDescSpan" data-index={spellInfo.index}>
                     <h3 id="spellDesc">{spellInfo.name}</h3>
-                    <button onClick={favourite}>Favourite</button>
+                    {favButton}
                     {spellInfo.desc.map((el) => {
                       return <p className="spellP">{el}</p>;
                     })}
@@ -161,5 +182,3 @@ const Spells = () => {
 export default Spells;
 //need to add a good looking way to display all the ~300 spells, add a search function with autofill. Each element needs to have a dropdown with the info for the spell on hover,
 //as well as a fav button. Fav button should save the spell to localStorage for the fav page to pull and display
-
-//change the page
