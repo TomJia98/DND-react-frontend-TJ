@@ -6,7 +6,6 @@ let lastPage = false;
 const Spells = () => {
   let [options, setOptions] = useState();
   const [page, setPage] = useState(1);
-  const [pageSettings, setPageSettings] = useState(page, 20);
   const [spellInfo, setSpellInfo] = useState();
   const spellsData = async () => {
     const results = await getSpells();
@@ -23,6 +22,17 @@ const Spells = () => {
   };
   spellsData();
 
+  const favourite = (e) => {
+    if (localStorage.getItem("spells") == undefined) {
+      console.log("no spells saved so far"); //----------------clog
+      const savedSpells = [spellInfo.index];
+      localStorage.setItem("spells", JSON.stringify(savedSpells));
+    } else {
+      let savedSpells = JSON.parse(localStorage.getItem("spells"));
+      savedSpells.push(spellInfo.index);
+      localStorage.setItem("spells", JSON.stringify(savedSpells));
+    }
+  };
   const increasePage = () => {
     setPage(page + 1);
   };
@@ -34,6 +44,7 @@ const Spells = () => {
   const SetActiveSpellDropdown = async (e) => {
     const resp = await getSpellInfo(e.value);
     setSpellInfo(resp);
+    // console.log(resp.index); //--------------------clog this is the index of the spell, use for saving to favourites
   };
   const SetActiveSpell = async (e) => {
     const resp = await getSpellInfo(e.target.id);
@@ -126,7 +137,7 @@ const Spells = () => {
                 <>
                   <span id="spellDescSpan">
                     <h3 id="spellDesc">{spellInfo.name}</h3>
-                    <button>Favourite</button>
+                    <button onClick={favourite}>Favourite</button>
                     {spellInfo.desc.map((el) => {
                       return <p className="spellP">{el}</p>;
                     })}
