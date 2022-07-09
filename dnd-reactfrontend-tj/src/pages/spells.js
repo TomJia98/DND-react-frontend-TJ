@@ -24,10 +24,11 @@ const Spells = () => {
   };
   spellsData();
   const favourite = (e) => {
-    const selected = e.target.parentElement.getAttribute("data-index"); //-------------clog
+    const selectedIndex = e.target.parentElement.getAttribute("data-index");
+    const selectedName = e.target.parentElement.getAttribute("data-name");
+    const selected = [selectedName, selectedIndex];
     if (localStorage.getItem("spells") == undefined) {
-      const savedSpells = [selected];
-      localStorage.setItem("spells", JSON.stringify(savedSpells));
+      localStorage.setItem("spells", JSON.stringify(selected));
       setFavButton(<button disabled>Favourited</button>);
     } else {
       let savedSpells = JSON.parse(localStorage.getItem("spells"));
@@ -42,10 +43,20 @@ const Spells = () => {
       return;
     }
     const localSpells = JSON.parse(localStorage.getItem("spells"));
-    //console.log(spellInfo); //----------------clog
-    const isFavourited = localSpells.includes(resp.index);
+    let isFavourited = false;
+    for (let i = 0; i < localSpells.length; i++) {
+      console.log(localSpells[i]);
+      if (localSpells[i] === resp.name) {
+        isFavourited = true;
+      }
+      if (localSpells[i][0] === resp.name) {
+        isFavourited = true;
+        console.log("is is true");
+      }
+    }
     if (isFavourited) {
       setFavButton(<button disabled>Favourited</button>);
+      isFavourited = false;
     } else {
       setFavButton(<button onClick={favourite}>Favourite</button>);
     }
@@ -156,7 +167,11 @@ const Spells = () => {
             <span id="spellInfo">
               {spellInfo ? (
                 <>
-                  <span id="spellDescSpan" data-index={spellInfo.index}>
+                  <span
+                    id="spellDescSpan"
+                    data-index={spellInfo.index}
+                    data-name={spellInfo.name}
+                  >
                     <h3 id="spellDesc">{spellInfo.name}</h3>
                     {favButton}
                     {spellInfo.desc.map((el) => {
