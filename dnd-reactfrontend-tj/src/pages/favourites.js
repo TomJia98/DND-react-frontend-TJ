@@ -5,7 +5,6 @@ const Favourites = () => {
   const [activeSpell, setActiveSpell] = useState();
   const showSpellDesc = async (e) => {
     const spellInfo = await getSpellInfo(e.target.id);
-    console.log(spellInfo); //----------------------clog
     setActiveSpell(spellInfo);
   };
   const unFav = () => {
@@ -19,7 +18,6 @@ const Favourites = () => {
       return <p>you have no saved spells</p>;
     } else {
       const spellsArr = JSON.parse(localStorage.getItem("spells"));
-      console.log(spellsArr); //----------------------clog
       return (
         <ul id="favSpells">
           {spellsArr.map((el) => {

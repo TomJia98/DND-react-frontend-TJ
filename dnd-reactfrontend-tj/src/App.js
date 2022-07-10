@@ -9,13 +9,13 @@ function App() {
     <Router>
       <div className="App">
         <header>
-          <h1>Working Title</h1>
+          <h1>DND Spell Saver</h1>
         </header>
         <nav>
-          <Link to="/" className="link">
+          <Link to="/" className="link" id="spellsLink">
             All Spells
           </Link>
-          <Link to="/fav" className="link">
+          <Link to="/fav" className="link" id="favLink">
             Your Favourites
           </Link>
         </nav>

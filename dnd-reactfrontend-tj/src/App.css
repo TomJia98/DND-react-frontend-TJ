@@ -1,14 +1,31 @@
+li {
+  border: 1px solid black;
+  border-radius: 10px;
+  font-size: 1.2em;
+  margin: 5px;
+  text-align: center;
+  padding: 0px 10px 0px 10px;
+background:rgb(155, 11, 155);
+-webkit-transition: background-color 0.5s ease-out;
+-moz-transition: background-color 0.5s ease-out;
+-o-transition: background-color 0.5s ease-out;
+transition: background-color 0.5s ease-out;
+}
+li:hover {
+  background-color: rgb(41, 12, 211, 0.7);
+  cursor: pointer;
+}
+
+
 .alphabetSection {
+  list-style-type: none;
   display: inline-block;
   padding: 5px 10px;
-  
-  
 };
 
 #infoSection {
   display: flex;
   flex-direction: column;
-
 };
 
 #spellInfo {
@@ -16,15 +33,13 @@
 }
 #spellDescSpan {
  float:right;
- width:50%;
-
+ width:80%;
 }
 .spellP{
   
 }
 
 #pageButtons{
-
   position:relative;
   top:0%;
   left:1%;
@@ -32,7 +47,6 @@
 
 #favSpells {
   list-style-type: none;
-
 }
 
 #favSection{
@@ -43,6 +57,14 @@
 
 #favDesc{
   width:80%;
-  
-  
+}
+
+#spellsLink {
+  position: relative;
+  left:92%;
+}
+
+#favLink {
+  position: relative;
+  right:00%;
 }
