@@ -1,11 +1,17 @@
+button{
+  background-color: rgba(100, 100, 216, 0.712);
+  border-radius: 10px;
+  padding:5px 5px;
+}
+
 li {
-  border: 1px solid black;
   border-radius: 10px;
   font-size: 1.2em;
   margin: 5px;
+  color:white;
   text-align: center;
   padding: 0px 10px 0px 10px;
-background:rgb(155, 11, 155);
+background:rgba(146, 67, 146, 0.7);
 -webkit-transition: background-color 0.5s ease-out;
 -moz-transition: background-color 0.5s ease-out;
 -o-transition: background-color 0.5s ease-out;
@@ -14,8 +20,23 @@ transition: background-color 0.5s ease-out;
 li:hover {
   background-color: rgb(41, 12, 211, 0.7);
   cursor: pointer;
+  color:black;
+}
+.link{
+  background-color: rgba(100, 100, 216, 0.712);
+  border-radius: 10px;
+  padding:12px 25px;
+text-decoration: none;
+color:black;
 }
 
+#title{
+  text-align: center;
+  font-size: 4em;
+  color:white;
+  font-family:serif;
+  text-shadow: 2px 5px rgba(0, 0, 0, 0.473);
+}
 
 .alphabetSection {
   list-style-type: none;
@@ -31,9 +52,24 @@ li:hover {
 #spellInfo {
 
 }
+.spellDesc {
+font-family: serif;
+font-size: 2em;
+}
+.spellDescSmall {
+  font-family: serif;
+  font-size: 1.4em;
+  }
+
 #spellDescSpan {
  float:right;
  width:80%;
+ color:white;
+ background-color: rgba(0, 0, 0, 0.4);
+ padding: 20px;
+ margin-right: 20px;
+ border-radius: 20px;
+
 }
 .spellP{
   
@@ -53,18 +89,40 @@ li:hover {
   display: flex;
   flex-direction: row;
   justify-content:space-between;
+  float:left;
 }
-
 #favDesc{
   width:80%;
+  background-color: rgba(0, 0, 0, 0.4);
+  color:white;
+  padding: 20px;
+  margin-right: 20px;
+  border-radius: 20px;
+  
+  
 }
 
 #spellsLink {
   position: relative;
-  left:92%;
+  left:91%;
 }
 
 #favLink {
   position: relative;
   right:00%;
+}
+
+#select{
+  margin: auto;
+  text-align: center;
+  color:black;
+  background-color: rgba(255, 255, 255, 0.521);
+  width:50%;
+}
+#favTitle{
+  font-family: serif;
+  font-size: 3em;
+  text-align: center;
+  margin:auto;
+
 }

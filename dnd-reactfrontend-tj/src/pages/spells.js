@@ -10,8 +10,8 @@ const Spells = () => {
   const [favButton, setFavButton] = useState();
 
   const spellsData = async () => {
-    const results = await getSpells();
     if (!options) {
+      const results = await getSpells();
       //stops the options from doubling up on re-render
       const resultsArr = results.results;
       const returnArr = [];
@@ -139,8 +139,11 @@ const Spells = () => {
   return (
     <div>
       <div className="selectDropdown">
-        <p>Know what your looking for? Search for it here</p>
+        <p style={{ textAlign: "center" }}>
+          Know what your looking for? Search for it here
+        </p>
         <Select
+          id="select"
           isMulti={false}
           options={options}
           closeMenuOnSelect={true}
@@ -171,7 +174,7 @@ const Spells = () => {
                     data-index={spellInfo.index}
                     data-name={spellInfo.name}
                   >
-                    <h3 id="spellDesc">{spellInfo.name}</h3>
+                    <h3 className="spellDesc">{spellInfo.name}</h3>
                     {favButton}
                     {spellInfo.desc.map((el) => {
                       return <p className="spellP">{el}</p>;

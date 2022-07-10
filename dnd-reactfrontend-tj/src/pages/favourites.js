@@ -33,30 +33,35 @@ const Favourites = () => {
   };
   //vvv below is the return of the core function vvv
   return (
-    <div id="favSection">
-      {storedFavourites()}
-      {activeSpell ? (
-        <>
-          <div id="favDesc">
-            <h2>{activeSpell.name}</h2>
-            <button onClick={unFav}>Un-favourite</button>
-            <h4>Description</h4>
-            {activeSpell.desc.map((el) => {
-              return <p>{el}</p>;
-            })}
-            <span>
-              <h4>Duration</h4>
-              <p>{activeSpell.duration}</p>
-            </span>
-            <span>
-              <h4>Range</h4>
-              <p>{activeSpell.range}</p>
-            </span>
-          </div>
-        </>
-      ) : (
-        <></>
-      )}
+    <div>
+      <h2 id="favTitle">Favourites</h2>
+
+      <div id="favSection">
+        <br />
+        {storedFavourites()}
+        {activeSpell ? (
+          <>
+            <div id="favDesc">
+              <h2 className="spellDesc">{activeSpell.name}</h2>
+              <button onClick={unFav}>Un-favourite</button>
+              <h4 className="spellDescSmall">Description</h4>
+              {activeSpell.desc.map((el) => {
+                return <p>{el}</p>;
+              })}
+              <span>
+                <h4 className="spellDescSmall">Duration</h4>
+                <p>{activeSpell.duration}</p>
+              </span>
+              <span>
+                <h4 className="spellDescSmall">Range</h4>
+                <p>{activeSpell.range}</p>
+              </span>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
+      </div>
     </div>
   );
 };

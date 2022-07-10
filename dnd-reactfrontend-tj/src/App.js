@@ -24,18 +24,20 @@ function App() {
             "url(/static/media/spellBackground.7769a55d7dbe4c6840ac.jpg)",
           backgroundPositionX: xOffset / 4 + "px",
           backgroundPositionY: yOffset / 5 + "px",
-          height: "110vh",
+          height: "100vh",
+          margin: "0",
+          padding: "0",
         }}
       >
         <header>
-          <h1>DND Spell Saver</h1>
+          <h1 id="title">DND Spell Saver</h1>
         </header>
         <nav>
           <Link to="/" className="link" id="spellsLink">
-            All Spells
+            Spells
           </Link>
           <Link to="/fav" className="link" id="favLink">
-            Your Favourites
+            Favourites
           </Link>
         </nav>
 
