@@ -26,6 +26,23 @@
 #pageButtons{
 
   position:relative;
-  top:70%;
-  left:2%;
+  top:0%;
+  left:1%;
+}
+
+#favSpells {
+  list-style-type: none;
+
+}
+
+#favSection{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+}
+
+#favDesc{
+  width:80%;
+  
+  
 }

@@ -109,7 +109,7 @@ const Spells = () => {
       return (
         <span id="pageButtons">
           <button onClick={decreasePage}>&#8592;</button>
-          <span>{page}</span>
+          <span>Page {page}</span>
           <button onClick={increasePage} disabled>
             &#8594;
           </button>
@@ -120,7 +120,7 @@ const Spells = () => {
         return (
           <span id="pageButtons">
             <button onClick={decreasePage}>&#8592;</button>
-            <span>{page}</span>
+            <span>Page {page}</span>
             <button onClick={increasePage}>&#8594;</button>
           </span>
         );
@@ -130,7 +130,7 @@ const Spells = () => {
           <button onClick={decreasePage} disabled>
             &#8592;
           </button>
-          <span>{page}</span>
+          <span>Page {page}</span>
           <button onClick={increasePage}>&#8594;</button>
         </span>
       );
@@ -147,6 +147,7 @@ const Spells = () => {
           onChange={SetActiveSpellDropdown}
         />
       </div>
+      <br />
       {pageDisplay()}
       <div id="infoSection">
         {options ? (

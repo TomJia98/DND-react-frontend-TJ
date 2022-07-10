@@ -2,7 +2,6 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Spells from "./pages/spells";
-import Landing from "./pages/landing";
 import Favourites from "./pages/favourites";
 
 function App() {
@@ -14,9 +13,6 @@ function App() {
         </header>
         <nav>
           <Link to="/" className="link">
-            Home
-          </Link>
-          <Link to="/spells" className="link">
             All Spells
           </Link>
           <Link to="/fav" className="link">
@@ -25,9 +21,8 @@ function App() {
         </nav>
 
         <Routes>
-          <Route path="/" element={<Landing />} />
           <Route path="/fav" element={<Favourites />} />
-          <Route path="/spells" element={<Spells />} />
+          <Route path="/" element={<Spells />} />
         </Routes>
       </div>
     </Router>
