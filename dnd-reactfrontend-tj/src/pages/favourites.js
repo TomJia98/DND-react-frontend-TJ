@@ -1,19 +1,22 @@
 import React, { useState } from "react";
-import { getSpells, getSpellInfo } from "../components/dnd-api";
+import { getSpellInfo } from "../components/dnd-api";
 
 const Favourites = () => {
   const [activeSpell, setActiveSpell] = useState();
   const showSpellDesc = async (e) => {
+    //sets the state after a spell has been selected
     const spellInfo = await getSpellInfo(e.target.id);
     setActiveSpell(spellInfo);
   };
   const unFav = () => {
+    //once the unfavourite button has been clicked, remove from LS and refresh the state
     const spellsArr = JSON.parse(localStorage.getItem("spells"));
     const newArr = spellsArr.filter((data) => data[0] != activeSpell.name);
     localStorage.setItem("spells", JSON.stringify(newArr));
     setActiveSpell();
   };
   const storedFavourites = () => {
+    //displays the items saved in LS
     if (!localStorage.getItem("spells")) {
       return <p>you have no saved spells</p>;
     } else {
@@ -22,7 +25,7 @@ const Favourites = () => {
         <ul id="favSpells">
           {spellsArr.map((el) => {
             return (
-              <li onClick={showSpellDesc} id={el[1]}>
+              <li onClick={showSpellDesc} id={el[1]} className="favLi">
                 {el[0]}
               </li>
             );

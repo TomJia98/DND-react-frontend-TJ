@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import { getSpells, getSpellInfo } from "../components/dnd-api";
 import Select from "react-select";
 
+//used for detecting when the page selector is on last page
 let lastPage = false;
 const Spells = () => {
-  let [options, setOptions] = useState();
+  const [options, setOptions] = useState();
   const [page, setPage] = useState(1);
   const [spellInfo, setSpellInfo] = useState();
   const [favButton, setFavButton] = useState();
 
   const spellsData = async () => {
+    //pulls the data from the API and sets as a state
     if (!options) {
+      //stops the options from doubling up/recalling on re-render
       const results = await getSpells();
-      //stops the options from doubling up on re-render
       const resultsArr = results.results;
       const returnArr = [];
       for (let i = 0; i < resultsArr.length; i++) {
@@ -23,7 +25,9 @@ const Spells = () => {
     }
   };
   spellsData();
+
   const favourite = (e) => {
+    //runs when the favourite button is pressed, saves into localStorage
     const selectedIndex = e.target.parentElement.getAttribute("data-index");
     const selectedName = e.target.parentElement.getAttribute("data-name");
     const selected = [selectedName, selectedIndex];
@@ -37,7 +41,9 @@ const Spells = () => {
       setFavButton(<button disabled>Favourited</button>);
     }
   };
+
   const isFavouritedinit = (resp) => {
+    //the initial check for if a spell is saved in localstorage, for the fav button
     if (localStorage.getItem("spells") == undefined) {
       setFavButton(<button onClick={favourite}>Favourite</button>);
       return;
@@ -61,29 +67,38 @@ const Spells = () => {
   };
 
   const increasePage = () => {
+    //increase page
     setPage(page + 1);
   };
 
   const decreasePage = () => {
+    //decrease page
     setPage(page - 1);
   };
 
   const SetActiveSpellDropdown = async (e) => {
+    //the spell selector for the dropdown menu
     setSpellInfo();
-
     const resp = await getSpellInfo(e.value);
     setSpellInfo(resp);
     isFavouritedinit(resp);
   };
   const SetActiveSpell = async (e) => {
+    //spell selector for the side menu
     const resp = await getSpellInfo(e.target.id);
     setSpellInfo(resp);
     isFavouritedinit(resp);
   };
   const pagesFunct = (array, page, amount = 20) => {
+    const getWindowWidth = () => {
+      const { innerWidth: width } = window;
+      return width;
+    };
+    if (getWindowWidth() < 420) {
+      amount = 6;
+    }
     //lets the user select a page of results,as well as how many results are on each page
-
-    const min = page * amount - 20;
+    const min = page * amount - amount;
     const returnArr = [];
     let enteredLast = false;
     let max = min + amount;
@@ -104,7 +119,10 @@ const Spells = () => {
     }
     return returnArr;
   };
+
   const pageDisplay = () => {
+    //returns the correct buttons based on what state the list is in
+    //makes sure the user cant go past or under the amount of spells
     if (lastPage === true) {
       return (
         <span id="pageButtons">
@@ -136,6 +154,7 @@ const Spells = () => {
       );
     }
   };
+  //vvv return for the root function vvv
   return (
     <div>
       <div className="selectDropdown">
@@ -188,7 +207,7 @@ const Spells = () => {
           </>
         ) : (
           <>
-            <p>loading spells</p>
+            <p>loading spells, just a second</p>
           </>
         )}
       </div>
@@ -197,5 +216,3 @@ const Spells = () => {
 };
 
 export default Spells;
-//need to add a good looking way to display all the ~300 spells, add a search function with autofill. Each element needs to have a dropdown with the info for the spell on hover,
-//as well as a fav button. Fav button should save the spell to localStorage for the fav page to pull and display

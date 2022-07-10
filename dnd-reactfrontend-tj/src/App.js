@@ -9,9 +9,16 @@ import spellBackground from "./images/spellBackground.jpg";
 function App() {
   let [xOffset, setX] = useState();
   let [yOffset, setY] = useState();
+  let currentBackground =
+    "url(/static/media/spellBackground.7769a55d7dbe4c6840ac.jpg)";
 
   const mouseMove = (e) => {
-    setX(e.clientX + -3500);
+    const currentScreenWidth = e.view.screen.width;
+    if (currentScreenWidth < 420) {
+      return;
+    }
+    //moves the background to follow the mouse, with offsets to keep the image centerdd
+    else setX(e.clientX + -3500);
     setY(e.clientY + -2000);
   };
   return (
@@ -20,8 +27,8 @@ function App() {
         className="App"
         onMouseMove={mouseMove}
         style={{
-          background:
-            "url(/static/media/spellBackground.7769a55d7dbe4c6840ac.jpg)",
+          background: currentBackground,
+          backgroundRepeat: "repeat-x",
           backgroundPositionX: xOffset / 4 + "px",
           backgroundPositionY: yOffset / 5 + "px",
           height: "100vh",
