@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { getSpellInfo } from "../components/dnd-api";
+import { getSpellInfo } from "../utils/dnd-api";
 
 const Favourites = () => {
   const [activeSpell, setActiveSpell] = useState();

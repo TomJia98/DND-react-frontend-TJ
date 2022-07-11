@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { getSpells, getSpellInfo } from "../components/dnd-api";
+import { getSpells, getSpellInfo } from "../utils/dnd-api";
 import Select from "react-select";
-
 //used for detecting when the page selector is on last page
 let lastPage = false;
 const Spells = () => {
