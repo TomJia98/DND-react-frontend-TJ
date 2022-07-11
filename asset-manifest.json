@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/DND-react-frontend-TJ/static/css/main.e7dc14ab.css",
+    "main.js": "/DND-react-frontend-TJ/static/js/main.7b47b037.js",
+    "static/js/787.0876ad57.chunk.js": "/DND-react-frontend-TJ/static/js/787.0876ad57.chunk.js",
+    "static/media/spellBackground.jpg": "/DND-react-frontend-TJ/static/media/spellBackground.7769a55d7dbe4c6840ac.jpg",
+    "index.html": "/DND-react-frontend-TJ/index.html",
+    "main.e7dc14ab.css.map": "/DND-react-frontend-TJ/static/css/main.e7dc14ab.css.map",
+    "main.7b47b037.js.map": "/DND-react-frontend-TJ/static/js/main.7b47b037.js.map",
+    "787.0876ad57.chunk.js.map": "/DND-react-frontend-TJ/static/js/787.0876ad57.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e7dc14ab.css",
+    "static/js/main.7b47b037.js"
+  ]
+}
